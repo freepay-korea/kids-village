@@ -1,0 +1,114 @@
+{
+  "balloon.red": {
+    "text": "빨강!",
+    "file": "balloon/red"
+  },
+  "balloon.mission.red.1": {
+    "text": "빨간 풍선 터뜨려!",
+    "file": "balloon/mission-red-1"
+  },
+  "balloon.mission.red.2": {
+    "text": "빨간 풍선 두 개 터뜨려!",
+    "file": "balloon/mission-red-2"
+  },
+  "balloon.mission.red.3": {
+    "text": "빨간 풍선 세 개 터뜨려!",
+    "file": "balloon/mission-red-3"
+  },
+  "balloon.blue": {
+    "text": "파랑!",
+    "file": "balloon/blue"
+  },
+  "balloon.mission.blue.1": {
+    "text": "파란 풍선 터뜨려!",
+    "file": "balloon/mission-blue-1"
+  },
+  "balloon.mission.blue.2": {
+    "text": "파란 풍선 두 개 터뜨려!",
+    "file": "balloon/mission-blue-2"
+  },
+  "balloon.mission.blue.3": {
+    "text": "파란 풍선 세 개 터뜨려!",
+    "file": "balloon/mission-blue-3"
+  },
+  "balloon.yellow": {
+    "text": "노랑!",
+    "file": "balloon/yellow"
+  },
+  "balloon.mission.yellow.1": {
+    "text": "노란 풍선 터뜨려!",
+    "file": "balloon/mission-yellow-1"
+  },
+  "balloon.mission.yellow.2": {
+    "text": "노란 풍선 두 개 터뜨려!",
+    "file": "balloon/mission-yellow-2"
+  },
+  "balloon.mission.yellow.3": {
+    "text": "노란 풍선 세 개 터뜨려!",
+    "file": "balloon/mission-yellow-3"
+  },
+  "balloon.green": {
+    "text": "초록!",
+    "file": "balloon/green"
+  },
+  "balloon.mission.green.1": {
+    "text": "초록 풍선 터뜨려!",
+    "file": "balloon/mission-green-1"
+  },
+  "balloon.mission.green.2": {
+    "text": "초록 풍선 두 개 터뜨려!",
+    "file": "balloon/mission-green-2"
+  },
+  "balloon.mission.green.3": {
+    "text": "초록 풍선 세 개 터뜨려!",
+    "file": "balloon/mission-green-3"
+  },
+  "balloon.purple": {
+    "text": "보라!",
+    "file": "balloon/purple"
+  },
+  "balloon.mission.purple.1": {
+    "text": "보라 풍선 터뜨려!",
+    "file": "balloon/mission-purple-1"
+  },
+  "balloon.mission.purple.2": {
+    "text": "보라 풍선 두 개 터뜨려!",
+    "file": "balloon/mission-purple-2"
+  },
+  "balloon.mission.purple.3": {
+    "text": "보라 풍선 세 개 터뜨려!",
+    "file": "balloon/mission-purple-3"
+  },
+  "balloon.orange": {
+    "text": "주황!",
+    "file": "balloon/orange"
+  },
+  "balloon.mission.orange.1": {
+    "text": "주황 풍선 터뜨려!",
+    "file": "balloon/mission-orange-1"
+  },
+  "balloon.mission.orange.2": {
+    "text": "주황 풍선 두 개 터뜨려!",
+    "file": "balloon/mission-orange-2"
+  },
+  "balloon.mission.orange.3": {
+    "text": "주황 풍선 세 개 터뜨려!",
+    "file": "balloon/mission-orange-3"
+  },
+  "balloon.pink": {
+    "text": "분홍!",
+    "file": "balloon/pink"
+  },
+  "balloon.mission.pink.1": {
+    "text": "분홍 풍선 터뜨려!",
+    "file": "balloon/mission-pink-1"
+  },
+  "balloon.mission.pink.2": {
+    "text": "분홍 풍선 두 개 터뜨려!",
+    "file": "balloon/mission-pink-2"
+  },
+  "balloon.mission.pink.3": {
+    "text": "분홍 풍선 세 개 터뜨려!",
+    "file": "balloon/mission-pink-3"
+  }
+}
