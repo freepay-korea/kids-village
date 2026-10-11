@@ -1,0 +1,6 @@
+{
+  "art.pick": { "text": "색을 골라서 칸을 톡톡 눌러 봐!", "file": "art/pick" },
+  "art.stamp": { "text": "도장 콩콩!", "file": "art/stamp" },
+  "art.done": { "text": "와, 멋진 그림이 완성됐다!", "file": "art/done" },
+  "art.gallery": { "text": "내가 그린 그림들이야!", "file": "art/gallery" }
+}
