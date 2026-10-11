@@ -1,0 +1,39 @@
+@import 'tailwindcss';
+
+@theme {
+  /* 건물 대표색 (기획서: 차고 주황, 학교 노랑, 농장 초록, 공원 하늘, 미술관 보라) */
+  --color-garage: #fb923c;
+  --color-school: #facc15;
+  --color-farm: #4ade80;
+  --color-park: #38bdf8;
+  --color-museum: #a78bfa;
+  --color-sky: #fef3c7;
+
+  --font-round: 'Jua', 'Apple SD Gothic Neo', 'Noto Sans KR', system-ui, sans-serif;
+
+  /* 터치 영역 최소 64px */
+  --spacing-touch: 4rem;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  /* 안드로이드 노치·웹 주소창 영역 */
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+
+body {
+  font-family: var(--font-round);
+  background: var(--color-sky);
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  overscroll-behavior: none;
+}
