@@ -17,6 +17,10 @@ npm run build    # 타입 검사 + 빌드 → dist/
 npm run preview  # 빌드 결과 확인
 ```
 
+## 안드로이드 앱
+
+`npm run build:app` 후 Android Studio에서 AAB를 만들어요. 자세한 순서는 [docs/앱빌드.md](docs/앱빌드.md)에 있어요.
+
 ## 배포
 
 `main`에 push하면 GitHub Actions가 자동으로 GitHub Pages에 올려요.
@@ -30,11 +34,11 @@ npm run preview  # 빌드 결과 확인
 - [x] 3. 공통 core
 - [x] 4. 스티커북
 - [x] 5. 동물 농장
-- [ ] 6. 안드로이드 중간 확인
+- [ ] 6. 안드로이드 중간 확인 (실기기 필요, [docs/앱빌드.md](docs/앱빌드.md) 체크리스트)
 - [x] 7. 콕콕 단어 학교
 - [x] 8. 풍선 공원
 - [x] 9. 부릉부릉 차고
 - [x] 10. 미술관
 - [x] 11. PWA·오프라인
-- [ ] 12. 앱 빌드
+- [~] 12. 앱 빌드: Capacitor 설정·햅틱·뒤로가기까지 준비됨. 앱 ID 확정 후 `npx cap add android` ([docs/앱빌드.md](docs/앱빌드.md))
 - [ ] 13. 점검

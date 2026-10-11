@@ -7,9 +7,13 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
+    "build:app": "VITE_BASE=/ npm run build && npx cap sync android",
     "typecheck": "tsc -b"
   },
   "dependencies": {
+    "@capacitor/app": "^7.1.2",
+    "@capacitor/core": "^7.6.9",
+    "@capacitor/haptics": "^7.0.5",
     "framer-motion": "^12.43.0",
     "howler": "^2.2.4",
     "pixi.js": "^8.22.0",
@@ -19,6 +23,8 @@
     "zustand": "^5.0.15"
   },
   "devDependencies": {
+    "@capacitor/android": "^7.6.9",
+    "@capacitor/cli": "^7.6.9",
     "@tailwindcss/vite": "^4.3.3",
     "@types/howler": "^2.2.13",
     "@types/node": "^22.20.5",

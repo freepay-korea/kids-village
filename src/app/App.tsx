@@ -1,7 +1,9 @@
+import { useEffect } from 'react'
 import { AnimatePresence } from 'framer-motion'
-import { HashRouter, Route, Routes, useLocation } from 'react-router-dom'
+import { HashRouter, Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import { useSession } from '@/core/session'
 import { usePlayTimer } from '@/core/playTimer'
+import { setupNative } from '@/core/native'
 import { Village } from './Village'
 import { GameRoute } from './GameRoute'
 import { StartScreen } from './StartScreen'
@@ -28,7 +30,9 @@ export function App() {
 function Screens() {
   const started = useSession((s) => s.started)
   const location = useLocation()
+  const navigate = useNavigate()
   usePlayTimer()
+  useEffect(() => setupNative(() => navigate('/')), [navigate])
 
   return (
     <AnimatePresence mode="wait">
