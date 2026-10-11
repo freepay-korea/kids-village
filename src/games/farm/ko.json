@@ -1,0 +1,19 @@
+{
+  "farm.who": { "text": "누구 소리지?", "file": "farm/who" },
+  "farm.cow": { "text": "음메~ 소!", "file": "farm/cow" },
+  "farm.cow.sound": { "text": "음메~", "file": "farm/cow-sound" },
+  "farm.pig": { "text": "꿀꿀~ 돼지!", "file": "farm/pig" },
+  "farm.pig.sound": { "text": "꿀꿀~", "file": "farm/pig-sound" },
+  "farm.chick": { "text": "삐약삐약~ 병아리!", "file": "farm/chick" },
+  "farm.chick.sound": { "text": "삐약삐약~", "file": "farm/chick-sound" },
+  "farm.sheep": { "text": "매에~ 양!", "file": "farm/sheep" },
+  "farm.sheep.sound": { "text": "매에~", "file": "farm/sheep-sound" },
+  "farm.duck": { "text": "꽥꽥~ 오리!", "file": "farm/duck" },
+  "farm.duck.sound": { "text": "꽥꽥~", "file": "farm/duck-sound" },
+  "farm.horse": { "text": "히힝~ 말!", "file": "farm/horse" },
+  "farm.horse.sound": { "text": "히힝~", "file": "farm/horse-sound" },
+  "farm.dog": { "text": "멍멍~ 강아지!", "file": "farm/dog" },
+  "farm.dog.sound": { "text": "멍멍~", "file": "farm/dog-sound" },
+  "farm.cat": { "text": "야옹~ 고양이!", "file": "farm/cat" },
+  "farm.cat.sound": { "text": "야옹~", "file": "farm/cat-sound" }
+}
