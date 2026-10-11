@@ -6,7 +6,7 @@ import type { CapacitorConfig } from '@capacitor/cli'
  * 앱 안에서는 file:// 대신 https://localhost 로 서빙되므로 Vite base는 '/'로 빌드한다 (npm run build:app).
  */
 const config: CapacitorConfig = {
-  appId: 'com.example.kidsvillage', // TODO: 앱 ID 확정 후 교체 (12단계)
+  appId: 'com.freepaykorea.kidsvillage', // 출시 전 확정 필요. 바꾸려면 docs/앱빌드.md의 '앱 ID 바꾸기' 참고
   appName: '아이 게임 마을',
   webDir: 'dist',
   android: {

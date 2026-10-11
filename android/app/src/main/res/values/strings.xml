@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">아이 게임 마을</string>
+    <string name="title_activity_main">아이 게임 마을</string>
+    <string name="package_name">com.freepaykorea.kidsvillage</string>
+    <string name="custom_url_scheme">com.freepaykorea.kidsvillage</string>
+</resources>

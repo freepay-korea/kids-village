@@ -19,7 +19,7 @@ npm run preview  # 빌드 결과 확인
 
 ## 안드로이드 앱
 
-`npm run build:app` 후 Android Studio에서 AAB를 만들어요. 자세한 순서는 [docs/앱빌드.md](docs/앱빌드.md)에 있어요.
+`main`에 push하면 GitHub Actions가 테스트용 APK를 만들어 Releases에 올려요. Play 스토어용 서명 AAB는 `npm run build:app` 후 Android Studio에서 만들어요. 자세한 순서는 [docs/앱빌드.md](docs/앱빌드.md)에 있어요.
 
 ## 배포
 
@@ -40,5 +40,5 @@ npm run preview  # 빌드 결과 확인
 - [x] 9. 부릉부릉 차고
 - [x] 10. 미술관
 - [x] 11. PWA·오프라인
-- [~] 12. 앱 빌드: Capacitor 설정·햅틱·뒤로가기까지 준비됨. 앱 ID 확정 후 `npx cap add android` ([docs/앱빌드.md](docs/앱빌드.md))
+- [~] 12. 앱 빌드: 안드로이드 프로젝트 생성, 테스트용 APK는 GitHub Actions가 자동 생성(Releases). Play용 서명 AAB만 남음 ([docs/앱빌드.md](docs/앱빌드.md))
 - [ ] 13. 점검
