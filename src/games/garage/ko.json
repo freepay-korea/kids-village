@@ -1,0 +1,13 @@
+{
+  "garage.car": { "text": "부릉부릉~ 자동차!", "file": "garage/car" },
+  "garage.bus": { "text": "빵빵~ 버스!", "file": "garage/bus" },
+  "garage.fire": { "text": "삐뽀삐뽀~ 소방차!", "file": "garage/fire" },
+  "garage.police": { "text": "애앵~ 경찰차!", "file": "garage/police" },
+  "garage.truck": { "text": "부릉부릉~ 트럭!", "file": "garage/truck" },
+  "garage.tractor": { "text": "털털털~ 트랙터!", "file": "garage/tractor" },
+  "garage.train": { "text": "칙칙폭폭~ 기차!", "file": "garage/train" },
+  "garage.plane": { "text": "슈웅~ 비행기!", "file": "garage/plane" },
+  "garage.wash.scrub": { "text": "거품으로 쓱싹쓱싹 문질러!", "file": "garage/wash-scrub" },
+  "garage.wash.rinse": { "text": "이제 물을 뿌려!", "file": "garage/wash-rinse" },
+  "garage.wash.shine": { "text": "와, 반짝반짝 깨끗해졌다!", "file": "garage/wash-shine" }
+}
