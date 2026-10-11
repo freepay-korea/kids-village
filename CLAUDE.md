@@ -40,7 +40,7 @@ docs/      기획서, 게임별 스펙
 
 - `npm run dev` 개발 서버 / `npm run build` 빌드(타입 검사 포함) / `npm run preview` 빌드 결과 확인
 - `npm run build:app` 앱용 빌드(base=/) + `cap sync`. 앱 빌드 순서는 `docs/앱빌드.md`
-- `main`에 push하면 GitHub Actions가 GitHub Pages로 자동 배포 (`.github/workflows/deploy.yml`)
+- `main`에 push하면 GitHub Actions가 `gh-pages` 브랜치로 자동 배포 (`.github/workflows/deploy.yml`), APK 자동 빌드 (`android.yml`)
 
 ## core 사용법 (게임에서 쓰는 것)
 

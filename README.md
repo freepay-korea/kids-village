@@ -23,9 +23,9 @@ npm run preview  # 빌드 결과 확인
 
 ## 배포
 
-`main`에 push하면 GitHub Actions가 자동으로 GitHub Pages에 올려요.
-저장소 Settings → Pages에서 Source를 **GitHub Actions**로 한 번만 설정하면 돼요.
-주소는 `https://<계정>.github.io/kids-village/` 예요.
+`main`에 push하면 GitHub Actions가 빌드 결과를 `gh-pages` 브랜치에 올려요.
+저장소 Settings → Pages에서 Source를 **Deploy from a branch**, 브랜치를 **gh-pages / (root)** 로 한 번만 설정하면 돼요.
+주소는 `https://freepay-korea.github.io/kids-village/` 예요.
 
 ## 진행 상황
 
