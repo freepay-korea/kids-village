@@ -1,11 +1,14 @@
 import { AnimatePresence } from 'framer-motion'
 import { HashRouter, Route, Routes, useLocation } from 'react-router-dom'
 import { useSession } from '@/core/session'
+import { usePlayTimer } from '@/core/playTimer'
 import { Village } from './Village'
 import { GameRoute } from './GameRoute'
 import { StartScreen } from './StartScreen'
 import { RotateOverlay } from './RotateOverlay'
 import { StickerBookRoute } from './StickerBookRoute'
+import { SettingsRoute } from './SettingsRoute'
+import { TapSparkles } from '@/ui/TapSparkles'
 
 /**
  * 화면 이동은 해시 방식(#/farm)을 쓴다.
@@ -16,6 +19,7 @@ export function App() {
   return (
     <HashRouter>
       <RotateOverlay />
+      <TapSparkles />
       <Screens />
     </HashRouter>
   )
@@ -24,6 +28,7 @@ export function App() {
 function Screens() {
   const started = useSession((s) => s.started)
   const location = useLocation()
+  usePlayTimer()
 
   return (
     <AnimatePresence mode="wait">
@@ -33,6 +38,7 @@ function Screens() {
         <Routes location={location} key={location.pathname}>
           <Route path="/" element={<Village />} />
           <Route path="/stickers" element={<StickerBookRoute />} />
+          <Route path="/settings" element={<SettingsRoute />} />
           <Route path="/:gameId" element={<GameRoute />} />
         </Routes>
       )}

@@ -1,0 +1,15 @@
+{
+  "welcome": { "text": "어서 와! 아이 게임 마을이야!", "file": "welcome" },
+  "enter.garage": { "text": "여기는 부릉부릉 차고야!", "file": "enter-garage" },
+  "enter.word-school": { "text": "여기는 콕콕 단어 학교야!", "file": "enter-word-school" },
+  "enter.farm": { "text": "여기는 동물 농장이야!", "file": "enter-farm" },
+  "enter.balloon-park": { "text": "여기는 풍선 공원이야!", "file": "enter-balloon-park" },
+  "enter.art-museum": { "text": "여기는 미술관이야!", "file": "enter-art-museum" },
+  "stickerbook": { "text": "내가 모은 스티커야!", "file": "stickerbook" },
+  "soon": { "text": "곧 열려요!", "file": "soon" },
+  "great": { "text": "잘했어!", "file": "great" },
+  "again": { "text": "다시 찾아볼까?", "file": "again" },
+  "hint": { "text": "여기 있네!", "file": "hint" },
+  "sticker": { "text": "스티커를 받았어!", "file": "sticker" },
+  "rest": { "text": "이제 쉬어볼까?", "file": "rest" }
+}

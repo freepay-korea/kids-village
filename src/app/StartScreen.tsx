@@ -1,5 +1,7 @@
 import { motion } from 'framer-motion'
 import { useSession } from '@/core/session'
+import { unlockAudio } from '@/core/sound'
+import { say } from '@/core/voice'
 
 /**
  * 첫 화면. 큰 버튼 하나만 있다.
@@ -7,6 +9,13 @@ import { useSession } from '@/core/session'
  */
 export function StartScreen() {
   const start = useSession((s) => s.start)
+
+  const onStart = async () => {
+    await unlockAudio()
+    start()
+    void say('welcome')
+  }
+
   return (
     <motion.main
       className="flex h-full w-full flex-col items-center justify-center gap-6 bg-sky"
@@ -17,7 +26,7 @@ export function StartScreen() {
       <div className="text-7xl">🏘️</div>
       <motion.button
         type="button"
-        onClick={start}
+        onClick={onStart}
         aria-label="탭해서 시작"
         className="flex h-40 w-40 items-center justify-center rounded-full bg-amber-400 text-8xl text-white shadow-xl active:scale-90"
         animate={{ scale: [1, 1.08, 1] }}

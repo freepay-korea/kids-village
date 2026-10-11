@@ -40,3 +40,12 @@ docs/      기획서, 게임별 스펙
 
 - `npm run dev` 개발 서버 / `npm run build` 빌드(타입 검사 포함) / `npm run preview` 빌드 결과 확인
 - `main`에 push하면 GitHub Actions가 GitHub Pages로 자동 배포 (`.github/workflows/deploy.yml`)
+
+## core 사용법 (게임에서 쓰는 것)
+
+- `feedback.correct()` / `feedback.wrong()` / `feedback.hint()` / `feedback.tap()` (`@/core/feedback`): 정답·오답·힌트 공통 반응(효과음+음성+진동). 흔들림 등 화면 연출은 게임이 framer-motion으로.
+- `playSfx('tap'|'pop'|'open'|'correct'|'wrong'|'sticker'|'sparkle')` (`@/core/sound`): 효과음. 지금은 WebAudio 합성음, 파일로 바꿀 때 이 파일만 수정.
+- `say(key)` / `registerLines({...})` (`@/core/voice`): 대사·단어 음성. 게임은 자기 `ko.json`을 `registerLines`로 등록하고 `say('farm.cow')`처럼 부른다. 파일은 `public/assets/voice/ko/<file>.mp3`, 없으면 임시 TTS.
+- `useSettings()` (`@/core/settings`): `easyMode`(보기 수 늘리지 않기), `volume`, `haptics` 등. 게임은 `easyMode`만 읽으면 된다.
+- 스티커 지급은 게임이 하지 않는다. `onComplete(stickerId)`만 부르면 `GameRoute`가 지급·축하·마을 복귀까지 처리한다. 스티커 id는 `@/core/stickers`의 `stickerCatalog[gameId]`에 있는 6개 중 하나.
+- 공통 UI: `BigButton`(64px 보장), `Celebration`(색종이), `HomeButton`, `Mascot` (`@/ui/*`).

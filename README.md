@@ -27,7 +27,7 @@ npm run preview  # 빌드 결과 확인
 
 - [x] 1. 뼈대: Vite+React+TS+Tailwind, 해시 라우팅, CLAUDE.md, Pages 자동 배포
 - [x] 2. 마을 허브
-- [ ] 3. 공통 core
+- [x] 3. 공통 core
 - [ ] 4. 스티커북
 - [ ] 5. 동물 농장
 - [ ] 6. 안드로이드 중간 확인

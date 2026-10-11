@@ -1,8 +1,13 @@
 import { useState } from 'react'
-import { motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
 import { games } from '@/games/registry'
+import { useSession } from '@/core/session'
+import { useStickers } from '@/core/stickers'
+import { playSfx } from '@/core/sound'
+import { lineText, say } from '@/core/voice'
 import { Building } from './Building'
+import { ParentGate } from './ParentGate'
 import { Mascot } from '@/ui/Mascot'
 
 /**
@@ -12,20 +17,25 @@ import { Mascot } from '@/ui/Mascot'
 export function Village() {
   const navigate = useNavigate()
   const [entering, setEntering] = useState<string | null>(null)
-  const [say, setSay] = useState<string | undefined>()
-  const evening = false // 3단계 놀이 시간 알림과 연결
+  const [bubble, setBubble] = useState<string | undefined>()
+  const [gate, setGate] = useState(false)
+  const evening = useSession((s) => s.evening)
+  const earned = useStickers((s) => s.earned)
 
-  const enter = (id: string, name: string) => {
-    if (entering) return
-    setEntering(id)
-    setSay(name)
-    // 마스코트가 이름을 말하고 문이 열리는 동안 기다렸다가 들어간다
-    window.setTimeout(() => navigate(`/${id}`), 700)
+  /** 마스코트가 대사 키를 말하고 말풍선에 글자도 띄운다 */
+  const speak = (key: string, holdMs = 1500) => {
+    setBubble(lineText(key))
+    void say(key)
+    window.setTimeout(() => setBubble((b) => (b === lineText(key) ? undefined : b)), holdMs)
   }
 
-  const poke = (text: string) => {
-    setSay(text)
-    window.setTimeout(() => setSay(undefined), 1500)
+  const enter = (id: string) => {
+    if (entering) return
+    setEntering(id)
+    playSfx('open')
+    speak(`enter.${id}`, 3000)
+    // 마스코트가 이름을 말하고 문이 열리는 동안 기다렸다가 들어간다
+    window.setTimeout(() => navigate(`/${id}`), 700)
   }
 
   return (
@@ -52,23 +62,41 @@ export function Village() {
 
       {/* 마을 한 장: 넓어서 좁은 화면에서는 가로 스크롤 */}
       <div className="flex h-full min-w-max items-end gap-6 px-10 pb-10">
-        <StickerBookEntrance onTap={() => navigate('/stickers')} />
+        <StickerBookEntrance
+          onTap={() => {
+            void say('stickerbook')
+            navigate('/stickers')
+          }}
+        />
         {games.map((game) => (
           <Building
             key={game.id}
             game={game}
-            stickerCount={0}
+            stickerCount={(earned[game.id] ?? []).length}
             entering={entering === game.id}
-            onTap={() => enter(game.id, game.name)}
+            onTap={() => enter(game.id)}
           />
         ))}
-        <EmptyLot onTap={() => poke('곧 열려요!')} />
+        <EmptyLot onTap={() => speak('soon')} />
       </div>
 
       {/* 마스코트는 항상 왼쪽 아래 */}
       <div className="pointer-events-none fixed bottom-2 left-4 z-30">
-        <Mascot say={say} />
+        <Mascot say={bubble} />
       </div>
+
+      {/* 어른용 설정 버튼: 작고 구석에. 눌러도 덧셈 문제를 풀어야 열린다 */}
+      <button
+        type="button"
+        onClick={() => setGate(true)}
+        aria-label="부모 설정"
+        className="fixed top-3 right-3 z-30 flex h-touch w-touch items-center justify-center rounded-full bg-white/50 text-3xl"
+      >
+        ⚙️
+      </button>
+      <AnimatePresence>
+        {gate && <ParentGate onPass={() => navigate('/settings')} onClose={() => setGate(false)} />}
+      </AnimatePresence>
     </motion.main>
   )
 }
