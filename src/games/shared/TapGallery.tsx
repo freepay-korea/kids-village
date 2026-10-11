@@ -17,8 +17,8 @@ export function TapGallery({ items }: { items: Item[] }) {
   }
 
   return (
-    <div className="flex h-full w-full items-center justify-center p-4 pt-20">
-      <div className="grid max-w-4xl grid-cols-4 gap-4">
+    <div className="flex h-full w-full justify-center overflow-y-auto p-4 pt-20 pb-6">
+      <div className="grid h-fit max-w-4xl grid-cols-4 gap-4 self-center">
         {items.map((item) => (
           <motion.button
             key={item.id}

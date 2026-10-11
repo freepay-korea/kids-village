@@ -13,6 +13,8 @@ interface Props {
   promptKey: string
   /** 문제 수 */
   rounds?: number
+  /** false면 항목을 먼저 말하고 안내를 나중에 한다 ("사과" → "어디 있지?") */
+  promptFirst?: boolean
   /** 다 맞히면 호출. 마지막에 찾은 항목 id를 넘긴다 */
   onDone: (lastItemId: string) => void
 }
@@ -44,7 +46,7 @@ function choiceCount(streak: number, easy: boolean) {
  * - 틀리면 그림이 흔들리고 "다시 찾아볼까?", 감점 없음
  * - 같은 문제를 2번 틀리면 정답이 반짝인다
  */
-export function FindMission({ items, promptKey, rounds = 5, onDone }: Props) {
+export function FindMission({ items, promptKey, rounds = 5, promptFirst = true, onDone }: Props) {
   const easy = useSettings((s) => s.easyMode)
 
   // 문제마다 정답 하나. 같은 정답이 연달아 나오지 않게 한다.
@@ -69,7 +71,8 @@ export function FindMission({ items, promptKey, rounds = 5, onDone }: Props) {
   const target = targets[round]
 
   const ask = () => {
-    void say(promptKey).then(() => say(target.questionKey))
+    const [first, second] = promptFirst ? [promptKey, target.questionKey] : [target.questionKey, promptKey]
+    void say(first).then(() => say(second))
   }
 
   // 새 문제가 나오면 들려준다

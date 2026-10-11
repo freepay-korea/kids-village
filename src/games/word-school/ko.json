@@ -1,0 +1,174 @@
+{
+  "word.where": {
+    "text": "어디 있지?",
+    "file": "word/where"
+  },
+  "word.apple": {
+    "text": "사과",
+    "file": "word/apple"
+  },
+  "word.banana": {
+    "text": "바나나",
+    "file": "word/banana"
+  },
+  "word.grape": {
+    "text": "포도",
+    "file": "word/grape"
+  },
+  "word.strawberry": {
+    "text": "딸기",
+    "file": "word/strawberry"
+  },
+  "word.watermelon": {
+    "text": "수박",
+    "file": "word/watermelon"
+  },
+  "word.carrot": {
+    "text": "당근",
+    "file": "word/carrot"
+  },
+  "word.milk": {
+    "text": "우유",
+    "file": "word/milk"
+  },
+  "word.bread": {
+    "text": "빵",
+    "file": "word/bread"
+  },
+  "word.cow": {
+    "text": "소",
+    "file": "word/cow"
+  },
+  "word.pig": {
+    "text": "돼지",
+    "file": "word/pig"
+  },
+  "word.chick": {
+    "text": "병아리",
+    "file": "word/chick"
+  },
+  "word.sheep": {
+    "text": "양",
+    "file": "word/sheep"
+  },
+  "word.duck": {
+    "text": "오리",
+    "file": "word/duck"
+  },
+  "word.horse": {
+    "text": "말",
+    "file": "word/horse"
+  },
+  "word.dog": {
+    "text": "강아지",
+    "file": "word/dog"
+  },
+  "word.cat": {
+    "text": "고양이",
+    "file": "word/cat"
+  },
+  "word.car": {
+    "text": "자동차",
+    "file": "word/car"
+  },
+  "word.bus": {
+    "text": "버스",
+    "file": "word/bus"
+  },
+  "word.train": {
+    "text": "기차",
+    "file": "word/train"
+  },
+  "word.plane": {
+    "text": "비행기",
+    "file": "word/plane"
+  },
+  "word.boat": {
+    "text": "배",
+    "file": "word/boat"
+  },
+  "word.bike": {
+    "text": "자전거",
+    "file": "word/bike"
+  },
+  "word.ball": {
+    "text": "공",
+    "file": "word/ball"
+  },
+  "word.book": {
+    "text": "책",
+    "file": "word/book"
+  },
+  "word.pencil": {
+    "text": "연필",
+    "file": "word/pencil"
+  },
+  "word.bag": {
+    "text": "가방",
+    "file": "word/bag"
+  },
+  "word.umbrella": {
+    "text": "우산",
+    "file": "word/umbrella"
+  },
+  "word.clock": {
+    "text": "시계",
+    "file": "word/clock"
+  },
+  "word.chair": {
+    "text": "의자",
+    "file": "word/chair"
+  },
+  "word.cup": {
+    "text": "컵",
+    "file": "word/cup"
+  },
+  "word.hat": {
+    "text": "모자",
+    "file": "word/hat"
+  },
+  "word.shoes": {
+    "text": "신발",
+    "file": "word/shoes"
+  },
+  "word.socks": {
+    "text": "양말",
+    "file": "word/socks"
+  },
+  "word.hand": {
+    "text": "손",
+    "file": "word/hand"
+  },
+  "word.eyes": {
+    "text": "눈",
+    "file": "word/eyes"
+  },
+  "word.foot": {
+    "text": "발",
+    "file": "word/foot"
+  },
+  "word.sun": {
+    "text": "해",
+    "file": "word/sun"
+  },
+  "word.moon": {
+    "text": "달",
+    "file": "word/moon"
+  },
+  "word.star": {
+    "text": "별",
+    "file": "word/star"
+  },
+  "word.flower": {
+    "text": "꽃",
+    "file": "word/flower"
+  },
+  "word.tree": {
+    "text": "나무",
+    "file": "word/tree"
+  },
+  "word.rain": {
+    "text": "비",
+    "file": "word/rain"
+  }
+}
