@@ -1,4 +1,5 @@
 import { lazy, Suspense, useMemo } from 'react'
+import { motion } from 'framer-motion'
 import { Navigate, useNavigate, useParams } from 'react-router-dom'
 import { findGame } from '@/games/registry'
 import { HomeButton } from '@/ui/HomeButton'
@@ -12,17 +13,21 @@ export function GameRoute() {
   const navigate = useNavigate()
   const game = gameId ? findGame(gameId) : undefined
 
-  const Game = useMemo(
-    () => (game ? lazy(game.load) : null),
-    [game],
-  )
+  const Game = useMemo(() => (game ? lazy(game.load) : null), [game])
 
   if (!game || !Game) return <Navigate to="/" replace />
 
   const goHome = () => navigate('/')
 
   return (
-    <div className="relative h-full w-full" style={{ backgroundColor: game.color }}>
+    <motion.div
+      className="relative h-full w-full"
+      style={{ backgroundColor: game.color }}
+      initial={{ opacity: 0, scale: 1.15 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.9 }}
+      transition={{ duration: 0.35 }}
+    >
       <HomeButton onClick={goHome} />
       <Suspense fallback={<Loading icon={game.icon} />}>
         <Game
@@ -34,14 +39,12 @@ export function GameRoute() {
           }}
         />
       </Suspense>
-    </div>
+    </motion.div>
   )
 }
 
 function Loading({ icon }: { icon: string }) {
   return (
-    <div className="flex h-full w-full items-center justify-center text-8xl animate-bounce">
-      {icon}
-    </div>
+    <div className="flex h-full w-full animate-bounce items-center justify-center text-8xl">{icon}</div>
   )
 }

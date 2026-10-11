@@ -26,7 +26,7 @@ npm run preview  # 빌드 결과 확인
 ## 진행 상황
 
 - [x] 1. 뼈대: Vite+React+TS+Tailwind, 해시 라우팅, CLAUDE.md, Pages 자동 배포
-- [ ] 2. 마을 허브
+- [x] 2. 마을 허브
 - [ ] 3. 공통 core
 - [ ] 4. 스티커북
 - [ ] 5. 동물 농장
