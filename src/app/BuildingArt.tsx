@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { SvgPic } from '@/ui/Pic'
 
 interface Props {
   id: string
@@ -74,7 +75,7 @@ function Garage({ open }: { open: boolean }) {
       <rect x="18" y="80" width="204" height="8" rx="4" fill="#fdba74" opacity="0.5" />
       {/* 간판 */}
       <rect x="86" y="42" width="68" height="40" rx="12" fill={TRIM} stroke={OUTLINE} strokeWidth="5" />
-      <text x="120" y="72" fontSize="28" textAnchor="middle">🚗</text>
+      <SvgPic emoji="🚗" x={104} y={46} size={32} />
       {/* 롤업 셔터: 열리면 위로 말려 올라간다 */}
       <rect x="62" y="124" width="116" height="96" rx="6" fill="#1f2937" />
       <motion.g
@@ -185,7 +186,7 @@ function Barn({ open }: { open: boolean }) {
       </motion.g>
       {/* 건초 */}
       <ellipse cx="208" cy="214" rx="22" ry="12" fill="#fbbf24" stroke={OUTLINE} strokeWidth="3" />
-      <text x="24" y="174" fontSize="22" textAnchor="middle">🐔</text>
+      <SvgPic emoji="🐔" x={10} y={150} size={28} />
     </svg>
   )
 }
@@ -208,7 +209,7 @@ function Park({ open }: { open: boolean }) {
       <path d="M70 220 V140 A50 50 0 0 1 170 140 V220" fill="none" stroke="#0ea5e9" strokeWidth="18" strokeLinecap="round" />
       <path d="M70 220 V140 A50 50 0 0 1 170 140 V220" fill="none" stroke={OUTLINE} strokeWidth="5" />
       <rect x="86" y="104" width="68" height="34" rx="12" fill={TRIM} stroke={OUTLINE} strokeWidth="4" />
-      <text x="120" y="130" fontSize="26" textAnchor="middle">🎈</text>
+      <SvgPic emoji="🎈" x={106} y={107} size={28} />
       {/* 쪽문: 열리면 양쪽으로 */}
       <motion.g style={{ originX: '80px', originY: '190px' }} animate={{ rotateY: open ? -100 : 0 }} transition={{ duration: 0.45 }}>
         <rect x="80" y="160" width="38" height="60" rx="6" fill="#f0f9ff" stroke={OUTLINE} strokeWidth="4" />
@@ -255,7 +256,7 @@ function Museum({ open }: { open: boolean }) {
       <path d="M26 104 L120 54 L214 104 Z" fill="#7c3aed" stroke={OUTLINE} strokeWidth="5" strokeLinejoin="round" />
       <path d="M86 60 A34 34 0 0 1 154 60 Z" fill="#c4b5fd" stroke={OUTLINE} strokeWidth="5" />
       <circle cx="120" cy="24" r="6" fill="#fde047" stroke={OUTLINE} strokeWidth="3" />
-      <text x="120" y="96" fontSize="26" textAnchor="middle">🎨</text>
+      <SvgPic emoji="🎨" x={106} y={72} size={28} />
       {/* 문 */}
       <Door x={102} y={138} w={36} h={58} open={open} color="#6d28d9" />
     </svg>

@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { playSfx } from '@/core/sound'
+import { Pic } from '@/ui/Pic'
 
 interface Props {
   color: string
@@ -27,12 +28,12 @@ export function ModeSelect({ color, icon, onPlay, onMission, extra }: Props) {
   return (
     <div className="flex h-full w-full flex-col items-center justify-center gap-8">
       <motion.div
-        className="text-[7rem] leading-none drop-shadow-[0_10px_8px_rgba(0,0,0,0.25)]"
+        className="drop-shadow-[0_10px_8px_rgba(0,0,0,0.25)]"
         initial={{ scale: 0, rotate: -20 }}
         animate={{ scale: 1, rotate: 0, y: [0, -10, 0] }}
         transition={{ scale: { type: 'spring', stiffness: 260, damping: 14 }, y: { repeat: Infinity, duration: 2.4, ease: 'easeInOut' } }}
       >
-        {icon}
+        <Pic emoji={icon} className="h-36 w-36" />
       </motion.div>
       <div className="flex gap-8">
         {buttons.map((b, i) => (
@@ -48,7 +49,7 @@ export function ModeSelect({ color, icon, onPlay, onMission, extra }: Props) {
             transition={{ type: 'spring', stiffness: 260, damping: 16, delay: 0.15 + i * 0.12 }}
             whileTap={{ scale: 0.93 }}
           >
-            <span className="text-7xl leading-none drop-shadow">{b.icon}</span>
+            <Pic emoji={b.icon} className="h-24 w-24 drop-shadow" />
             <span className="text-xl text-cocoa/80">{b.sub}</span>
           </motion.button>
         ))}

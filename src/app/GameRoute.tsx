@@ -8,6 +8,7 @@ import { haptic } from '@/core/haptics'
 import { say } from '@/core/voice'
 import { HomeButton } from '@/ui/HomeButton'
 import { Celebration } from '@/ui/Celebration'
+import { Pic } from '@/ui/Pic'
 
 /**
  * 건물(게임) 하나를 동적으로 불러와 보여 준다.
@@ -79,13 +80,13 @@ export function GameRoute() {
               animate={{ scale: [0, 1.25, 1], rotate: [-40, 8, 0] }}
               transition={{ duration: 0.7, type: 'spring', bounce: 0.5 }}
             >
-              <motion.span
-                className="text-[8.5rem] leading-none drop-shadow-xl"
+              <motion.div
+                className="drop-shadow-xl"
                 animate={{ y: [0, -8, 0], rotate: [0, -4, 4, 0] }}
                 transition={{ repeat: Infinity, duration: 1.6 }}
               >
-                {earned.icon}
-              </motion.span>
+                <Pic emoji={earned.icon} className="h-40 w-40" />
+              </motion.div>
               <div className="shine pointer-events-none absolute inset-0 overflow-hidden rounded-full" />
             </motion.div>
             <motion.div
@@ -106,8 +107,8 @@ export function GameRoute() {
 function Loading({ icon }: { icon: string }) {
   return (
     <div className="flex h-full w-full items-center justify-center">
-      <motion.div className="text-8xl" animate={{ y: [0, -20, 0], scaleX: [1, 0.9, 1] }} transition={{ repeat: Infinity, duration: 0.7 }}>
-        {icon}
+      <motion.div animate={{ y: [0, -20, 0], scaleX: [1, 0.9, 1] }} transition={{ repeat: Infinity, duration: 0.7 }}>
+        <Pic emoji={icon} className="h-28 w-28" />
       </motion.div>
     </div>
   )

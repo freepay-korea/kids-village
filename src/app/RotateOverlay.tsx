@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { Mascot } from '@/ui/Mascot'
+import { Pic, SvgPic } from '@/ui/Pic'
 
 const query = '(orientation: portrait)'
 
@@ -35,10 +36,10 @@ export function RotateOverlay() {
         <rect x="10" y="10" width="100" height="180" rx="18" fill="#1f2937" />
         <rect x="18" y="26" width="84" height="148" rx="8" fill="#bae6fd" />
         <circle cx="60" cy="182" r="5" fill="#9ca3af" />
-        <text x="60" y="110" fontSize="40" textAnchor="middle">🏘️</text>
+        <SvgPic emoji="🏘️" x={36} y={76} size={48} />
       </motion.svg>
-      <motion.div className="text-6xl" animate={{ rotate: -360 }} transition={{ repeat: Infinity, duration: 2.6, ease: 'linear' }}>
-        🔄
+      <motion.div animate={{ rotate: -360 }} transition={{ repeat: Infinity, duration: 2.6, ease: 'linear' }}>
+        <Pic emoji="🔄" className="h-16 w-16" />
       </motion.div>
       <div className="text-outline text-3xl">폰을 돌려주세요</div>
       <div className="absolute bottom-2 left-2">

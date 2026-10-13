@@ -1,6 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import { playSfx } from '@/core/sound'
+import { Pic } from './Pic'
 
 interface Spark {
   id: number
@@ -32,14 +33,14 @@ export function TapSparkles() {
         {sparks.map((s) => (
           <motion.span
             key={s.id}
-            className="absolute text-3xl"
+            className="absolute"
             style={{ left: s.x - 18, top: s.y - 18 }}
             initial={{ scale: 0.3, opacity: 1 }}
             animate={{ scale: 1.4, opacity: 0, y: -24 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.5, ease: 'easeOut' }}
           >
-            ✨
+            <Pic emoji="✨" className="h-9 w-9" />
           </motion.span>
         ))}
       </AnimatePresence>

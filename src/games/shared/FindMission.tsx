@@ -6,6 +6,7 @@ import { playSfx } from '@/core/sound'
 import { say } from '@/core/voice'
 import { Celebration } from '@/ui/Celebration'
 import { Mascot } from '@/ui/Mascot'
+import { Pic } from '@/ui/Pic'
 import { GameCard } from './GameCard'
 import type { Item } from './types'
 
@@ -130,7 +131,7 @@ export function FindMission({ items, promptKey, rounds = 5, promptFirst = true, 
             animate={i < done ? { scale: [1, 1.6, 1], filter: 'grayscale(0)', opacity: 1 } : { filter: 'grayscale(1)', opacity: 0.35 }}
             transition={{ duration: 0.5 }}
           >
-            ⭐
+            <Pic emoji="⭐" className="h-9 w-9" />
           </motion.span>
         ))}
       </div>
@@ -154,7 +155,7 @@ export function FindMission({ items, promptKey, rounds = 5, promptFirst = true, 
             transition={{ repeat: Infinity, duration: 1.4 }}
             whileTap={{ scale: 0.9 }}
           >
-            🔊
+            <Pic emoji="🔊" className="h-10 w-10" />
           </motion.button>
         </div>
 
@@ -182,7 +183,7 @@ export function FindMission({ items, promptKey, rounds = 5, promptFirst = true, 
                 }
                 transition={shaking === item.id ? { duration: 0.45, type: 'tween' } : undefined}
               >
-                {item.icon}
+                <Pic emoji={item.icon} className="h-full w-full" />
               </GameCard>
             )
           })}

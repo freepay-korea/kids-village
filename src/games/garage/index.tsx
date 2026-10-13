@@ -5,6 +5,7 @@ import { playSfx } from '@/core/sound'
 import { feedback } from '@/core/feedback'
 import type { GameProps } from '@/games/types'
 import { ModeSelect } from '../shared/ModeSelect'
+import { Pic } from '@/ui/Pic'
 import { TapGallery } from '../shared/TapGallery'
 import { WashScene, type WashStage } from './washScene'
 import { vehicles } from './vehicles'
@@ -76,13 +77,13 @@ function CarWash({ onDone }: { onDone: () => void }) {
           return (
             <motion.span
               key={s.stage}
-              className="text-4xl"
+              className="flex"
               aria-label={s.label}
               style={{ opacity: current || passed ? 1 : 0.3 }}
               animate={current ? { scale: [1, 1.25, 1] } : { scale: 1 }}
               transition={{ repeat: Infinity, duration: 1 }}
             >
-              {s.icon}
+              <Pic emoji={s.icon} className="h-10 w-10" />
             </motion.span>
           )
         })}

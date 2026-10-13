@@ -7,6 +7,7 @@ import { feedback } from '@/core/feedback'
 import { useSettings } from '@/core/settings'
 import type { GameProps } from '@/games/types'
 import { ModeSelect } from '../shared/ModeSelect'
+import { Pic } from '@/ui/Pic'
 import { BalloonScene } from './scene'
 import { colors, type BalloonColor } from './colors'
 import lines from './ko.json'
@@ -150,9 +151,9 @@ function Park({ mission, onComplete }: { mission: boolean; onComplete: (id: stri
             type="button"
             onClick={() => say(`balloon.mission.${task.color.id}.${task.count}`)}
             aria-label="다시 듣기"
-            className="pointer-events-auto flex h-12 w-12 items-center justify-center rounded-full bg-sky-100 text-2xl"
+            className="pointer-events-auto flex h-12 w-12 items-center justify-center rounded-full bg-sky-100"
           >
-            🔊
+            <Pic emoji="🔊" className="h-8 w-8" />
           </button>
         </div>
       )}

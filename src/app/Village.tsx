@@ -10,6 +10,7 @@ import { Building } from './Building'
 import { ParentGate } from './ParentGate'
 import { Clouds, Flower, Hills, Sun, Tree } from './Scenery'
 import { Mascot } from '@/ui/Mascot'
+import { Pic } from '@/ui/Pic'
 
 /**
  * 마을 지도. 가로로 살짝 스크롤되는 한 장에
@@ -126,9 +127,9 @@ export function Village() {
         type="button"
         onClick={() => setGate(true)}
         aria-label="부모 설정"
-        className="glass fixed top-3 right-3 z-30 flex h-touch w-touch items-center justify-center rounded-full text-3xl opacity-80"
+        className="glass fixed top-3 right-3 z-30 flex h-touch w-touch items-center justify-center rounded-full opacity-80"
       >
-        ⚙️
+        <Pic emoji="⚙️" className="h-8 w-8" />
       </button>
       <AnimatePresence>
         {gate && <ParentGate onPass={() => navigate('/settings')} onClose={() => setGate(false)} />}
@@ -168,7 +169,7 @@ function StickerBookEntrance({ onTap }: { onTap: () => void }) {
         transition={{ repeat: Infinity, duration: 4, ease: 'easeInOut' }}
       >
         <div className="absolute inset-y-3 left-2 w-2 rounded bg-white/40" />
-        <div className="absolute inset-x-5 top-6 rounded-xl bg-white/90 p-2 text-center text-4xl shadow-inner">⭐</div>
+        <div className="absolute inset-x-5 top-6 flex justify-center rounded-xl bg-white/90 p-2 shadow-inner"><Pic emoji="⭐" className="h-12 w-12" /></div>
         <div className="absolute right-3 bottom-3 left-8 h-2 rounded bg-white/50" />
         <div className="absolute right-3 bottom-7 left-8 h-2 rounded bg-white/50" />
       </motion.div>

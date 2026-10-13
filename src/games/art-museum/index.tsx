@@ -7,6 +7,7 @@ import { gallery, type Artwork } from '@/core/gallery'
 import type { GameProps } from '@/games/types'
 import { Celebration } from '@/ui/Celebration'
 import { ModeSelect } from '../shared/ModeSelect'
+import { Pic } from '@/ui/Pic'
 import { Canvas, type Drawing } from './Canvas'
 import { paletteColors, pictures, stampEmojis, type Picture } from './pictures'
 import lines from './ko.json'
@@ -101,7 +102,7 @@ function Studio({ mission, onDone }: { mission: boolean; onDone: () => void }) {
             onClick={() => setTool({ stamp: s })}
             style={{ backgroundColor: '#fff' }}
           >
-            {s}
+            <Pic emoji={s} className="h-8 w-8" />
           </ToolButton>
         ))}
       </div>
@@ -126,7 +127,7 @@ function Studio({ mission, onDone }: { mission: boolean; onDone: () => void }) {
               }`}
               style={{ ['--btn' as string]: '#ffffff' }}
             >
-              {p.icon}
+              <Pic emoji={p.icon} className="h-10 w-10" />
             </button>
           ))}
           <button
@@ -136,7 +137,7 @@ function Studio({ mission, onDone }: { mission: boolean; onDone: () => void }) {
             className="btn-3d mt-auto flex h-touch w-touch items-center justify-center rounded-2xl text-4xl"
             style={{ ['--btn' as string]: '#bbf7d0' }}
           >
-            💾
+            <Pic emoji="💾" className="h-9 w-9" />
           </button>
         </div>
       )}
@@ -155,7 +156,7 @@ function ToolButton({
   active: boolean
   onClick: () => void
   style: React.CSSProperties
-  children?: string
+  children?: React.ReactNode
 }) {
   return (
     <motion.button
@@ -204,7 +205,7 @@ function Gallery({ onBack }: { onBack: () => void }) {
         aria-label="뒤로"
         className="absolute top-3 right-3 z-40 flex h-touch w-touch items-center justify-center rounded-full bg-white/90 text-4xl shadow-lg active:scale-90"
       >
-        ↩️
+        <Pic emoji="↩️" className="h-9 w-9" />
       </button>
       {works && works.length === 0 && (
         <div className="flex h-full items-center justify-center text-8xl opacity-60">🖼️</div>

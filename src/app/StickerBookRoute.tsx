@@ -6,6 +6,7 @@ import { stickerCatalog, useStickers, type Sticker } from '@/core/stickers'
 import { playSfx } from '@/core/sound'
 import { HomeButton } from '@/ui/HomeButton'
 import { SparkBurst } from '@/ui/SparkBurst'
+import { Pic } from '@/ui/Pic'
 
 /**
  * 스티커북. 책을 펼친 모양에 건물마다 한 줄, 6칸.
@@ -45,7 +46,7 @@ export function StickerBookRoute() {
         animate={{ scale: 1 }}
         transition={{ type: 'spring', delay: 0.3 }}
       >
-        ⭐ {total}
+        <Pic emoji="⭐" className="h-9 w-9" /> {total}
       </motion.div>
 
       {/* 펼친 책 */}
@@ -74,9 +75,9 @@ export function StickerBookRoute() {
                   style={{ backgroundColor: game.color }}
                   aria-label={game.name}
                 >
-                  {game.icon}
+                  <Pic emoji={game.icon} className="h-12 w-12" />
                 </div>
-                <div className="grid flex-1 grid-cols-3 justify-items-center gap-2 sm:grid-cols-6">
+                <div className="grid flex-1 grid-cols-3 justify-items-center gap-2">
                   {stickerCatalog[game.id].map((sticker, si) => {
                     const got = have.includes(sticker.id)
                     return (
@@ -104,9 +105,11 @@ export function StickerBookRoute() {
                         whileTap={{ scale: 0.9 }}
                         onAnimationComplete={() => picked === sticker.id && setPicked(null)}
                       >
-                        <span style={got ? undefined : { filter: 'grayscale(1) brightness(0.3)', opacity: 0.2 }}>
-                          {sticker.icon}
-                        </span>
+                        <Pic
+                          emoji={sticker.icon}
+                          className="h-12 w-12"
+                          style={got ? undefined : { filter: 'grayscale(1) brightness(0.3)', opacity: 0.2 }}
+                        />
                         {got && <span className="shine pointer-events-none absolute inset-0 overflow-hidden rounded-full" />}
                         {burst === sticker.id && <SparkBurst />}
                       </motion.button>

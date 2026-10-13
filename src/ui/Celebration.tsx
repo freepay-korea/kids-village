@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { useMemo } from 'react'
+import { Pic } from './Pic'
 
 const COLORS = ['#ef4444', '#f97316', '#facc15', '#22c55e', '#38bdf8', '#a855f7', '#f472b6']
 const STARS = ['⭐', '✨', '🌟']
@@ -75,7 +76,7 @@ export function Celebration({ count = 36, x = 50, y = 55, small }: Props) {
           }}
           transition={{ duration: p.dur, delay: p.delay, ease: ['easeOut', 'easeIn'], times: [0, 0.45, 1] }}
         >
-          {p.star ? p.icon : ''}
+          {p.star ? <Pic emoji={p.icon} style={{ width: small ? 20 : 34, height: small ? 20 : 34 }} /> : ''}
         </motion.span>
       ))}
     </div>

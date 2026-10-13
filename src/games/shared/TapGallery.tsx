@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { playSfx } from '@/core/sound'
 import { say } from '@/core/voice'
 import { GameCard } from './GameCard'
+import { Pic } from '@/ui/Pic'
 import type { Item } from './types'
 
 /**
@@ -31,7 +32,7 @@ export function TapGallery({ items }: { items: Item[] }) {
             animate={active === item.id ? { y: [0, -44, 0, -16, 0], rotate: [0, -10, 10, -5, 0] } : undefined}
             transition={active === item.id ? { duration: 0.7, type: 'tween' } : undefined}
           >
-            {item.icon}
+            <Pic emoji={item.icon} className="h-full w-full" />
           </GameCard>
         ))}
       </div>

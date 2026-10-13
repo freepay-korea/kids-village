@@ -39,7 +39,7 @@ export function GameCard({ label, onClick, children, size = 128, animate, transi
           transition={{ repeat: Infinity, duration: 0.9 }}
         />
       )}
-      <span className="drop-shadow-[0_6px_4px_rgba(0,0,0,0.18)]">{children}</span>
+      <span className="flex h-full w-full items-center justify-center p-[14%] drop-shadow-[0_6px_4px_rgba(0,0,0,0.18)]">{children}</span>
       {burst && <SparkBurst color={burstColor} />}
     </motion.button>
   )

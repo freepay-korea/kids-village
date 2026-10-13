@@ -4,6 +4,7 @@ import type { Stamp } from '@/core/gallery'
 import { playSfx } from '@/core/sound'
 import { say } from '@/core/voice'
 import type { Picture } from './pictures'
+import { SvgPic } from '@/ui/Pic'
 
 export interface Drawing {
   fills: Record<string, string>
@@ -73,9 +74,7 @@ export function Canvas({ picture, drawing, tool, onChange, readOnly, className =
         <path key={i} d={d} fill="none" stroke="#374151" strokeWidth={4} strokeLinecap="round" />
       ))}
       {drawing.stamps.map((s, i) => (
-        <text key={i} x={s.x} y={s.y} fontSize={36} textAnchor="middle" dominantBaseline="central">
-          {s.emoji}
-        </text>
+        <SvgPic key={i} emoji={s.emoji} x={s.x - 22} y={s.y - 22} size={44} />
       ))}
     </svg>
   )

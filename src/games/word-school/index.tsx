@@ -6,6 +6,7 @@ import type { GameProps } from '@/games/types'
 import { ModeSelect } from '../shared/ModeSelect'
 import { TapGallery } from '../shared/TapGallery'
 import { FindMission } from '../shared/FindMission'
+import { Pic } from '@/ui/Pic'
 import { allWords, categories, type WordCategory } from './words'
 import lines from './ko.json'
 
@@ -61,10 +62,13 @@ function CategoryPicker({ onPick }: { onPick: (c: WordCategory) => void }) {
               onPick(c)
             }}
             aria-label={c.name}
-            className="flex h-28 w-36 items-center justify-center rounded-3xl bg-white/85 text-7xl shadow-md"
+            className="card-pop flex h-28 w-36 items-center justify-center rounded-3xl"
+            initial={{ scale: 0, y: 30 }}
+            animate={{ scale: 1, y: 0 }}
+            transition={{ type: 'spring', stiffness: 280, damping: 16, delay: categories.indexOf(c) * 0.06 }}
             whileTap={{ scale: 0.9 }}
           >
-            {c.icon}
+            <Pic emoji={c.icon} className="h-20 w-20 drop-shadow" />
           </motion.button>
         ))}
       </div>
@@ -78,9 +82,10 @@ function BackToCategories({ onClick }: { onClick: () => void }) {
       type="button"
       onClick={onClick}
       aria-label="다른 그림 보기"
-      className="absolute top-3 right-3 z-40 flex h-touch w-touch items-center justify-center rounded-full bg-white/90 text-4xl shadow-lg active:scale-90"
+      className="btn-3d absolute top-3 right-3 z-40 flex h-touch w-touch items-center justify-center rounded-full"
+      style={{ ['--btn' as string]: '#ffffff' }}
     >
-      ↩️
+      <Pic emoji="↩️" className="h-9 w-9" />
     </button>
   )
 }

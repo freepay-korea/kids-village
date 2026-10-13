@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import type { GameMeta } from '@/games/types'
 import { BuildingArt } from './BuildingArt'
+import { Pic } from '@/ui/Pic'
 
 interface Props {
   game: GameMeta
@@ -36,12 +37,12 @@ export function Building({ game, stickerCount, entering, index, onTap }: Props) 
         {Array.from({ length: stickerCount }, (_, i) => (
           <motion.span
             key={i}
-            className="text-xl drop-shadow"
+            className="drop-shadow"
             initial={{ scale: 0 }}
             animate={{ scale: 1, y: [0, -3, 0] }}
             transition={{ scale: { type: 'spring', delay: 0.3 + i * 0.05 }, y: { repeat: Infinity, duration: 1.6, delay: i * 0.2 } }}
           >
-            ⭐
+            <Pic emoji="⭐" className="h-7 w-7" />
           </motion.span>
         ))}
       </div>
