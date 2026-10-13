@@ -33,18 +33,21 @@ export function GameRoute() {
     playSfx('sticker')
     haptic([40, 60, 40])
     void say('sticker')
-    window.setTimeout(goHome, 2600)
+    window.setTimeout(goHome, 3000)
   }
 
   return (
     <motion.div
-      className="relative h-full w-full"
-      style={{ backgroundColor: game.color }}
-      initial={{ opacity: 0, scale: 1.15 }}
-      animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.9 }}
-      transition={{ duration: 0.35 }}
+      className="relative h-full w-full overflow-hidden"
+      style={{
+        background: `radial-gradient(circle at 50% 30%, color-mix(in srgb, ${game.color} 55%, white) 0%, ${game.color} 70%)`,
+      }}
+      initial={{ clipPath: 'circle(0% at 50% 50%)', opacity: 1 }}
+      animate={{ clipPath: 'circle(120% at 50% 50%)' }}
+      exit={{ opacity: 0, scale: 0.96, filter: 'blur(4px)' }}
+      transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
     >
+      <div className="bg-dots pointer-events-none absolute inset-0 opacity-60" />
       <HomeButton onClick={goHome} />
       <Suspense fallback={<Loading icon={game.icon} />}>
         <Game onExit={goHome} onComplete={onComplete} />
@@ -53,21 +56,46 @@ export function GameRoute() {
       <AnimatePresence>
         {earned && (
           <motion.div
-            className="absolute inset-0 z-40 flex flex-col items-center justify-center bg-white/70"
+            className="absolute inset-0 z-40 flex flex-col items-center justify-center overflow-hidden bg-[#fffbe6]"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
-            <Celebration />
+            {/* 뒤에서 도는 햇살 */}
             <motion.div
-              className="text-[9rem] drop-shadow-xl"
-              initial={{ scale: 0, rotate: -30 }}
-              animate={{ scale: [0, 1.3, 1], rotate: 0 }}
-              transition={{ duration: 0.7, type: 'spring' }}
+              className="absolute h-[160vmax] w-[160vmax] rounded-full"
+              style={{
+                background:
+                  'repeating-conic-gradient(from 0deg, #fde68a 0deg 12deg, #fff7ed 12deg 24deg)',
+              }}
+              initial={{ scale: 0, rotate: 0 }}
+              animate={{ scale: 1, rotate: 360 }}
+              transition={{ scale: { duration: 0.6, ease: 'easeOut' }, rotate: { repeat: Infinity, duration: 18, ease: 'linear' } }}
+            />
+            <Celebration count={48} y={45} />
+            <motion.div
+              className="relative flex h-56 w-56 items-center justify-center rounded-full bg-white shadow-[0_0_0_10px_#fde68a,0_20px_40px_rgba(0,0,0,0.25)]"
+              initial={{ scale: 0, rotate: -40 }}
+              animate={{ scale: [0, 1.25, 1], rotate: [-40, 8, 0] }}
+              transition={{ duration: 0.7, type: 'spring', bounce: 0.5 }}
             >
-              {earned.icon}
+              <motion.span
+                className="text-[8.5rem] leading-none drop-shadow-xl"
+                animate={{ y: [0, -8, 0], rotate: [0, -4, 4, 0] }}
+                transition={{ repeat: Infinity, duration: 1.6 }}
+              >
+                {earned.icon}
+              </motion.span>
+              <div className="shine pointer-events-none absolute inset-0 overflow-hidden rounded-full" />
             </motion.div>
-            <div className="text-3xl text-amber-900">{earned.name} 스티커!</div>
+            <motion.div
+              className="text-outline relative mt-6 text-5xl"
+              initial={{ y: 40, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.35, type: 'spring', stiffness: 200, damping: 14 }}
+            >
+              {earned.name} 스티커!
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -77,6 +105,10 @@ export function GameRoute() {
 
 function Loading({ icon }: { icon: string }) {
   return (
-    <div className="flex h-full w-full animate-bounce items-center justify-center text-8xl">{icon}</div>
+    <div className="flex h-full w-full items-center justify-center">
+      <motion.div className="text-8xl" animate={{ y: [0, -20, 0], scaleX: [1, 0.9, 1] }} transition={{ repeat: Infinity, duration: 0.7 }}>
+        {icon}
+      </motion.div>
+    </div>
   )
 }

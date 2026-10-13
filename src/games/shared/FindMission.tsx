@@ -5,6 +5,8 @@ import { useSettings } from '@/core/settings'
 import { playSfx } from '@/core/sound'
 import { say } from '@/core/voice'
 import { Celebration } from '@/ui/Celebration'
+import { Mascot } from '@/ui/Mascot'
+import { GameCard } from './GameCard'
 import type { Item } from './types'
 
 interface Props {
@@ -19,7 +21,7 @@ interface Props {
   onDone: (lastItemId: string) => void
 }
 
-const ROUND_PAUSE = 1300
+const ROUND_PAUSE = 1400
 
 function shuffle<T>(arr: T[]): T[] {
   const a = [...arr]
@@ -49,7 +51,6 @@ function choiceCount(streak: number, easy: boolean) {
 export function FindMission({ items, promptKey, rounds = 5, promptFirst = true, onDone }: Props) {
   const easy = useSettings((s) => s.easyMode)
 
-  // 문제마다 정답 하나. 같은 정답이 연달아 나오지 않게 한다.
   const targets = useMemo(() => {
     const picks: Item[] = []
     let pool = shuffle(items)
@@ -66,18 +67,21 @@ export function FindMission({ items, promptKey, rounds = 5, promptFirst = true, 
   const [misses, setMisses] = useState(0)
   const [shaking, setShaking] = useState<string | null>(null)
   const [solved, setSolved] = useState(false)
+  const [speaking, setSpeaking] = useState(false)
   const doneRef = useRef(false)
 
   const target = targets[round]
 
   const ask = () => {
     const [first, second] = promptFirst ? [promptKey, target.questionKey] : [target.questionKey, promptKey]
-    void say(first).then(() => say(second))
+    setSpeaking(true)
+    void say(first)
+      .then(() => say(second))
+      .finally(() => setSpeaking(false))
   }
 
-  // 새 문제가 나오면 들려준다
   useEffect(() => {
-    const id = window.setTimeout(ask, 400)
+    const id = window.setTimeout(ask, 500)
     return () => window.clearTimeout(id)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [round])
@@ -109,74 +113,83 @@ export function FindMission({ items, promptKey, rounds = 5, promptFirst = true, 
       const m = misses + 1
       setMisses(m)
       if (m >= 2) window.setTimeout(() => feedback.hint(), 900)
+      window.setTimeout(() => setShaking((s) => (s === item.id ? null : s)), 500)
     }
   }
 
   const hint = misses >= 2 && !solved
+  const done = round + (solved ? 1 : 0)
 
   return (
-    <div className="flex h-full w-full flex-col items-center justify-center gap-6 p-4 pt-16">
-      {/* 진행: 별 5개 */}
-      <div className="flex gap-2 text-3xl" aria-label={`${round + (solved ? 1 : 0)} / ${rounds}`}>
+    <div className="relative flex h-full w-full flex-col items-center justify-center gap-6 p-4 pt-16">
+      {/* 진행: 별 5개가 채워진다 */}
+      <div className="glass flex gap-2 rounded-full px-5 py-2 text-3xl" aria-label={`${done} / ${rounds}`}>
         {Array.from({ length: rounds }, (_, i) => (
-          <span key={i} style={{ opacity: i < round + (solved ? 1 : 0) ? 1 : 0.25 }}>
+          <motion.span
+            key={i}
+            animate={i < done ? { scale: [1, 1.6, 1], filter: 'grayscale(0)', opacity: 1 } : { filter: 'grayscale(1)', opacity: 0.35 }}
+            transition={{ duration: 0.5 }}
+          >
             ⭐
-          </span>
+          </motion.span>
         ))}
       </div>
 
       <div className="flex items-center gap-6">
-        {/* 다시 듣기 */}
-        <motion.button
-          type="button"
-          onClick={() => {
-            playSfx('tap')
-            ask()
-          }}
-          aria-label="다시 듣기"
-          className="flex h-touch w-touch items-center justify-center rounded-full bg-white text-4xl shadow-md"
-          whileTap={{ scale: 0.9 }}
-          animate={{ scale: [1, 1.1, 1] }}
-          transition={{ repeat: Infinity, duration: 1.5 }}
-        >
-          🔊
-        </motion.button>
+        {/* 마스코트 + 다시 듣기 */}
+        <div className="flex flex-col items-center gap-2">
+          <motion.div animate={speaking ? { rotate: [0, -6, 6, -6, 0] } : { rotate: 0 }} transition={{ repeat: speaking ? Infinity : 0, duration: 0.6 }}>
+            <Mascot size={100} />
+          </motion.div>
+          <motion.button
+            type="button"
+            onClick={() => {
+              playSfx('tap')
+              ask()
+            }}
+            aria-label="다시 듣기"
+            className="btn-3d flex h-touch w-touch items-center justify-center rounded-full text-4xl"
+            style={{ ['--btn' as string]: '#ffffff' }}
+            animate={{ scale: [1, 1.08, 1] }}
+            transition={{ repeat: Infinity, duration: 1.4 }}
+            whileTap={{ scale: 0.9 }}
+          >
+            🔊
+          </motion.button>
+        </div>
 
-        <div className="flex gap-4">
-          {options.map((item) => {
+        <div className="flex gap-5">
+          {options.map((item, i) => {
             const isTarget = item.id === target.id
+            const correct = solved && isTarget
             return (
-              <motion.button
-                key={item.id}
-                type="button"
+              <GameCard
+                key={`${round}-${item.id}`}
+                label={item.name}
                 onClick={() => choose(item)}
-                aria-label={item.name}
-                className="flex h-32 w-32 items-center justify-center rounded-3xl bg-white/90 text-7xl shadow-lg"
-                whileTap={{ scale: 0.9 }}
+                size={136}
+                delay={i * 0.08}
+                highlight={hint && isTarget}
+                burst={correct}
                 animate={
                   shaking === item.id
-                    ? { x: [0, -12, 12, -8, 8, 0] }
-                    : solved && isTarget
-                      ? { scale: [1, 1.3, 1.15], rotate: [0, -6, 6, 0] }
-                      : hint && isTarget
-                        ? { scale: [1, 1.12, 1], boxShadow: ['0 0 0 0 #fde047', '0 0 0 14px #fde04700'] }
-                        : { x: 0, scale: 1 }
+                    ? { x: [0, -14, 14, -10, 10, 0], filter: ['grayscale(0)', 'grayscale(0.6)', 'grayscale(0)'] }
+                    : correct
+                      ? { scale: [1, 1.35, 1.2], rotate: [0, -8, 8, 0], y: -12 }
+                      : solved
+                        ? { opacity: 0.4, scale: 0.9 }
+                        : undefined
                 }
-                transition={
-                  hint && isTarget && !solved
-                    ? { repeat: Infinity, duration: 1 }
-                    : { duration: 0.45 }
-                }
-                onAnimationComplete={() => shaking === item.id && setShaking(null)}
+                transition={shaking === item.id ? { duration: 0.45, type: 'tween' } : undefined}
               >
                 {item.icon}
-              </motion.button>
+              </GameCard>
             )
           })}
         </div>
       </div>
 
-      {solved && round + 1 < rounds && <Celebration count={14} />}
+      {solved && round + 1 < rounds && <Celebration count={18} small y={55} />}
     </div>
   )
 }

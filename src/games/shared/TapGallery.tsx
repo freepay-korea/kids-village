@@ -1,7 +1,7 @@
-import { motion } from 'framer-motion'
 import { useState } from 'react'
 import { playSfx } from '@/core/sound'
 import { say } from '@/core/voice'
+import { GameCard } from './GameCard'
 import type { Item } from './types'
 
 /**
@@ -14,29 +14,25 @@ export function TapGallery({ items }: { items: Item[] }) {
     playSfx('pop')
     void say(item.voiceKey)
     setActive(item.id)
+    window.setTimeout(() => setActive((a) => (a === item.id ? null : a)), 700)
   }
 
   return (
     <div className="flex h-full w-full justify-center overflow-y-auto p-4 pt-20 pb-6">
-      <div className="grid h-fit max-w-4xl grid-cols-4 gap-4 self-center">
-        {items.map((item) => (
-          <motion.button
+      <div className="grid h-fit max-w-4xl grid-cols-4 gap-5 self-center">
+        {items.map((item, i) => (
+          <GameCard
             key={item.id}
-            type="button"
+            label={item.name}
             onClick={() => tap(item)}
-            aria-label={item.name}
-            className="flex h-28 w-28 items-center justify-center rounded-3xl bg-white/80 text-7xl shadow-md"
-            whileTap={{ scale: 0.9 }}
-            animate={
-              active === item.id
-                ? { y: [0, -40, 0, -16, 0], rotate: [0, -8, 8, -4, 0] }
-                : { y: 0, rotate: 0 }
-            }
-            transition={{ duration: 0.7 }}
-            onAnimationComplete={() => active === item.id && setActive(null)}
+            size={120}
+            delay={i * 0.05}
+            burst={active === item.id}
+            animate={active === item.id ? { y: [0, -44, 0, -16, 0], rotate: [0, -10, 10, -5, 0] } : undefined}
+            transition={active === item.id ? { duration: 0.7, type: 'tween' } : undefined}
           >
             {item.icon}
-          </motion.button>
+          </GameCard>
         ))}
       </div>
     </div>

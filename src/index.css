@@ -1,5 +1,14 @@
 @import 'tailwindcss';
 
+/* 둥근 한글 폰트. 네트워크 없이 쓰도록 내장 (public/fonts, SIL OFL) */
+@font-face {
+  font-family: 'Jua';
+  src: url('/fonts/Jua-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 @theme {
   /* 건물 대표색 (기획서: 차고 주황, 학교 노랑, 농장 초록, 공원 하늘, 미술관 보라) */
   --color-garage: #fb923c;
@@ -7,12 +16,32 @@
   --color-farm: #4ade80;
   --color-park: #38bdf8;
   --color-museum: #a78bfa;
-  --color-sky: #fef3c7;
+  --color-sky: #e0f2fe;
+  --color-cream: #fff8e7;
+  --color-cocoa: #5b3a1e;
 
   --font-round: 'Jua', 'Apple SD Gothic Neo', 'Noto Sans KR', system-ui, sans-serif;
 
   /* 터치 영역 최소 64px */
   --spacing-touch: 4rem;
+
+  --animate-float: float 3s ease-in-out infinite;
+  --animate-wiggle: wiggle 1.2s ease-in-out infinite;
+  --animate-spin-slow: spin 24s linear infinite;
+  --animate-shine: shine 2.4s ease-in-out infinite;
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+  @keyframes wiggle {
+    0%, 100% { transform: rotate(-3deg); }
+    50% { transform: rotate(3deg); }
+  }
+  @keyframes shine {
+    0% { transform: translateX(-120%) skewX(-20deg); }
+    60%, 100% { transform: translateX(220%) skewX(-20deg); }
+  }
 }
 
 html,
@@ -31,9 +60,78 @@ body,
 body {
   font-family: var(--font-round);
   background: var(--color-sky);
+  color: var(--color-cocoa);
   -webkit-user-select: none;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
   overscroll-behavior: none;
+}
+
+/* 글자 외곽선: 밝은 배경 위 제목용 */
+.text-outline {
+  color: #fff;
+  text-shadow:
+    -2px -2px 0 var(--color-cocoa), 2px -2px 0 var(--color-cocoa),
+    -2px 2px 0 var(--color-cocoa), 2px 2px 0 var(--color-cocoa),
+    0 4px 0 var(--color-cocoa), 0 8px 16px rgb(0 0 0 / 0.25);
+  letter-spacing: 0.02em;
+}
+
+/* 입체 버튼: --btn 색을 주면 아래쪽 그림자가 자동으로 어두운 색이 된다. 누르면 내려앉는다 */
+.btn-3d {
+  --btn: #fff;
+  --btn-dark: color-mix(in srgb, var(--btn) 70%, #000 30%);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--btn) 80%, #fff 20%) 0%, var(--btn) 55%, color-mix(in srgb, var(--btn) 88%, #000 12%) 100%);
+  box-shadow:
+    0 6px 0 var(--btn-dark),
+    0 12px 24px rgb(0 0 0 / 0.18),
+    inset 0 2px 0 rgb(255 255 255 / 0.55);
+  border: 3px solid rgb(255 255 255 / 0.6);
+  transform: translateY(0);
+  transition: transform 0.08s ease, box-shadow 0.08s ease;
+}
+.btn-3d:active,
+.btn-3d[data-pressed='true'] {
+  transform: translateY(5px);
+  box-shadow:
+    0 1px 0 var(--btn-dark),
+    0 4px 10px rgb(0 0 0 / 0.15),
+    inset 0 2px 0 rgb(255 255 255 / 0.55);
+}
+
+/* 카드: 흰 바탕 + 위쪽 하이라이트 + 부드러운 그림자 */
+.card-pop {
+  background: linear-gradient(180deg, #ffffff 0%, #fffdf7 100%);
+  border: 4px solid #fff;
+  box-shadow:
+    0 6px 0 rgb(0 0 0 / 0.08),
+    0 14px 28px rgb(0 0 0 / 0.16),
+    inset 0 0 0 2px rgb(0 0 0 / 0.04);
+}
+
+/* 반투명 유리 패널 */
+.glass {
+  background: rgb(255 255 255 / 0.72);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 2px solid rgb(255 255 255 / 0.8);
+  box-shadow: 0 8px 24px rgb(0 0 0 / 0.12);
+}
+
+/* 흰 빛이 스치는 반짝임 (overflow-hidden 요소 안에서) */
+.shine::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  width: 40%;
+  background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.55), transparent);
+  animation: var(--animate-shine);
+  pointer-events: none;
+}
+
+/* 땡땡이 배경 */
+.bg-dots {
+  background-image: radial-gradient(rgb(255 255 255 / 0.35) 12%, transparent 13%);
+  background-size: 34px 34px;
 }

@@ -7,3 +7,5 @@
 | (아직 없음. 1단계는 시스템 이모지만 사용) | | |
 | public/icons/* | 직접 제작 (단순 도형 SVG, Playwright로 PNG 렌더) | 프로젝트 자체 |
 | 효과음 | 파일 없음. `src/core/sound.ts`에서 WebAudio로 합성 | 프로젝트 자체 |
+| public/fonts/Jua-Regular.woff2 | Jua (WOFF TYPE, Google Fonts) https://github.com/google/fonts/tree/main/ofl/jua | SIL Open Font License 1.1 (public/fonts/OFL.txt) |
+| 건물·풍경·마스코트 그림 (src/app/BuildingArt.tsx, Scenery.tsx, src/ui/Mascot.tsx) | 직접 제작 (SVG) | 프로젝트 자체 |

@@ -1,4 +1,4 @@
-import { Application, Container, Graphics, type FederatedPointerEvent } from 'pixi.js'
+import { Application, Container, FillGradient, Graphics, type FederatedPointerEvent } from 'pixi.js'
 
 export type WashStage = 'scrub' | 'rinse' | 'shine' | 'done'
 
@@ -63,7 +63,17 @@ export class WashScene {
     this.car.x = width / 2
     this.car.y = height / 2 + 30
     this.car.scale.set(Math.min(width / 560, height / 380, 1.5))
-    this.app.stage.addChild(this.car, this.fx)
+    // 세차장 기둥·지붕
+    const booth = new Graphics()
+    booth.roundRect(width * 0.12, 70, width * 0.76, 40, 16).fill(0x1d4ed8)
+    for (let x = width * 0.14; x < width * 0.88; x += 40) booth.roundRect(x, 76, 24, 28, 8).fill(0x60a5fa)
+    booth.roundRect(width * 0.12, 70, 28, height * 0.6, 10).fill(0x2563eb)
+    booth.roundRect(width * 0.88 - 28, 70, 28, height * 0.6, 10).fill(0x2563eb)
+    // 바닥 그림자
+    const shadow = new Graphics().ellipse(0, 0, 200, 26).fill({ color: 0x000000, alpha: 0.22 })
+    shadow.x = this.car.x
+    shadow.y = this.car.y + 108 * this.car.scale.y
+    this.app.stage.addChild(booth, shadow, this.car, this.fx)
 
     // 진흙
     for (let i = 0; i < 8; i++) {
@@ -127,7 +137,7 @@ export class WashScene {
       for (let i = 0; i < 3; i++) this.addDrop(x + (Math.random() - 0.5) * 40, y - 20)
       for (const b of this.bubbles) {
         const d = Math.hypot(b.g.x - x, b.g.y - y)
-        if (d < 70) b.fade = 0.12
+        if (d < 110) b.fade = Math.max(b.fade, 0.12)
       }
       if (this.bubbles.length === 0) this.setStage('shine')
     }
@@ -138,6 +148,9 @@ export class WashScene {
     this.stage = stage
     this.lockUntil = performance.now() + 1500
     this.opts.onStage(stage)
+    if (stage === 'rinse') {
+      for (const b of this.bubbles) b.fade = Math.max(b.fade, 0.004)
+    }
     if (stage === 'rinse' && this.bubbles.length === 0) {
       // 거품이 하나도 없으면 바로 반짝
       this.setStage('shine')
@@ -212,20 +225,43 @@ export class WashScene {
 
 function drawCar(g: Graphics, color: number) {
   g.clear()
+  const dark = mixColor(color, 0x000000, 0.3)
+  const light = mixColor(color, 0xffffff, 0.35)
+  const body = new FillGradient({ type: 'linear', start: { x: 0, y: 0 }, end: { x: 0, y: 1 } })
+  body.addColorStop(0, light)
+  body.addColorStop(0.5, color)
+  body.addColorStop(1, dark)
   // 바퀴
   for (const x of [-100, 100]) {
-    g.circle(x, 72, 30).fill(0x1f2937)
-    g.circle(x, 72, 14).fill(0x9ca3af)
+    g.circle(x, 72, 32).fill(0x111827)
+    g.circle(x, 72, 32).stroke({ width: 4, color: 0x374151 })
+    g.circle(x, 72, 16).fill(0xd1d5db)
+    g.circle(x, 72, 6).fill(0x6b7280)
   }
   // 차체
-  g.roundRect(-170, 0, 340, 70, 24).fill(color)
-  g.roundRect(-110, -70, 220, 90, 28).fill(color)
+  g.roundRect(-170, 0, 340, 72, 26).fill(body)
+  g.roundRect(-170, 0, 340, 72, 26).stroke({ width: 4, color: dark })
+  g.roundRect(-112, -72, 224, 92, 30).fill(body)
+  g.roundRect(-112, -72, 224, 92, 30).stroke({ width: 4, color: dark })
   // 창문
-  g.roundRect(-95, -58, 90, 60, 14).fill(0xbae6fd)
-  g.roundRect(5, -58, 90, 60, 14).fill(0xbae6fd)
-  // 전조등
-  g.circle(160, 30, 10).fill(0xfef08a)
-  g.circle(-160, 30, 10).fill(0xfca5a5)
+  const glass = new FillGradient({ type: 'linear', start: { x: 0, y: 0 }, end: { x: 0, y: 1 } })
+  glass.addColorStop(0, 0xe0f2fe)
+  glass.addColorStop(1, 0x7dd3fc)
+  g.roundRect(-96, -60, 90, 62, 16).fill(glass)
+  g.roundRect(6, -60, 90, 62, 16).fill(glass)
+  g.roundRect(-90, -54, 30, 16, 8).fill({ color: 0xffffff, alpha: 0.7 })
+  // 손잡이·전조등·범퍼
+  g.roundRect(-40, 24, 22, 8, 4).fill(dark)
+  g.roundRect(18, 24, 22, 8, 4).fill(dark)
+  g.circle(160, 30, 12).fill(0xfef08a)
+  g.circle(160, 30, 12).stroke({ width: 3, color: 0xca8a04 })
+  g.circle(-160, 30, 11).fill(0xfca5a5)
+  g.roundRect(-178, 54, 356, 12, 6).fill(0x9ca3af)
+}
+
+function mixColor(a: number, b: number, t: number) {
+  const ch = (sh: number) => Math.round(((a >> sh) & 0xff) * (1 - t) + ((b >> sh) & 0xff) * t)
+  return (ch(16) << 16) | (ch(8) << 8) | ch(0)
 }
 
 function drawStar(g: Graphics, r: number) {

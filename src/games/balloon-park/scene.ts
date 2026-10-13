@@ -1,4 +1,4 @@
-import { Application, Container, Graphics, type FederatedPointerEvent } from 'pixi.js'
+import { Application, Container, FillGradient, Graphics, type FederatedPointerEvent } from 'pixi.js'
 import { colors, type BalloonColor } from './colors'
 
 interface Balloon {
@@ -49,7 +49,7 @@ export class BalloonScene {
       autoDensity: true,
     })
     host.appendChild(this.app.canvas)
-    this.app.stage.addChild(this.layer, this.fx)
+    this.app.stage.addChild(this.drawClouds(), this.layer, this.fx)
     this.app.ticker.add(this.tick)
     this.running = true
     // 처음에 몇 개 미리 띄워 둔다
@@ -60,6 +60,25 @@ export class BalloonScene {
     this.running = false
     this.app.ticker.remove(this.tick)
     this.app.destroy(true, { children: true })
+  }
+
+  /** 뒤에 떠 있는 연한 구름 */
+  private drawClouds() {
+    const c = new Container()
+    const { width, height } = this.app.screen
+    for (let i = 0; i < 5; i++) {
+      const g = new Graphics()
+      const x = (width / 5) * i + 40
+      const y = 40 + (i % 2) * 70
+      const s = 0.8 + (i % 3) * 0.3
+      g.ellipse(x, y + 10, 50 * s, 22 * s).fill({ color: 0xffffff, alpha: 0.85 })
+      g.ellipse(x + 40 * s, y, 45 * s, 30 * s).fill({ color: 0xffffff, alpha: 0.85 })
+      g.ellipse(x + 80 * s, y + 12, 36 * s, 20 * s).fill({ color: 0xffffff, alpha: 0.85 })
+      c.addChild(g)
+    }
+    c.alpha = 0.9
+    void height
+    return c
   }
 
   private pickColor(): BalloonColor {
@@ -162,13 +181,26 @@ export class BalloonScene {
 function drawBalloon(g: Graphics, color: number) {
   g.clear()
   // 줄
-  g.moveTo(0, 52)
-  g.quadraticCurveTo(10, 75, 0, 100)
-  g.stroke({ width: 2, color: 0x6b7280, alpha: 0.7 })
+  g.moveTo(0, 54)
+  g.quadraticCurveTo(12, 78, -2, 104)
+  g.stroke({ width: 2.5, color: 0x6b7280, alpha: 0.8 })
   // 매듭
-  g.poly([-6, 52, 6, 52, 0, 42]).fill(color)
-  // 몸통
-  g.ellipse(0, 0, 40, 50).fill(color)
+  g.poly([-7, 56, 7, 56, 0, 44]).fill(color)
+  // 몸통: 위-왼쪽이 밝고 아래가 진한 그라데이션
+  const light = mix(color, 0xffffff, 0.45)
+  const dark = mix(color, 0x000000, 0.25)
+  const grad = new FillGradient({ type: 'radial', center: { x: 0.35, y: 0.3 }, innerRadius: 0, outerCenter: { x: 0.5, y: 0.5 }, outerRadius: 0.75 })
+  grad.addColorStop(0, light)
+  grad.addColorStop(0.55, color)
+  grad.addColorStop(1, dark)
+  g.ellipse(0, 0, 40, 50).fill(grad)
+  g.ellipse(0, 0, 40, 50).stroke({ width: 3, color: dark, alpha: 0.6 })
   // 하이라이트
-  g.ellipse(-14, -18, 10, 16).fill({ color: 0xffffff, alpha: 0.45 })
+  g.ellipse(-15, -20, 9, 15).fill({ color: 0xffffff, alpha: 0.75 })
+  g.circle(-6, -34, 4).fill({ color: 0xffffff, alpha: 0.7 })
+}
+
+function mix(a: number, b: number, t: number) {
+  const ch = (sh: number) => Math.round(((a >> sh) & 0xff) * (1 - t) + ((b >> sh) & 0xff) * t)
+  return (ch(16) << 16) | (ch(8) << 8) | ch(0)
 }

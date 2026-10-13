@@ -42,8 +42,9 @@ export function ParentGate({ onPass, onClose }: Props) {
     >
       <motion.div
         className="flex flex-col items-center gap-5 rounded-3xl bg-white p-6 shadow-2xl"
-        initial={{ scale: 0.8 }}
-        animate={{ scale: 1 }}
+        initial={{ scale: 0.7, y: 30 }}
+        animate={{ scale: 1, y: 0 }}
+        transition={{ type: 'spring', stiffness: 300, damping: 20 }}
         onClick={(e) => e.stopPropagation()}
       >
         <div className="text-lg text-gray-500">어른에게 물어보세요</div>
@@ -54,7 +55,8 @@ export function ParentGate({ onPass, onClose }: Props) {
               key={n}
               type="button"
               onClick={() => choose(n)}
-              className="h-touch w-touch rounded-2xl bg-gray-100 text-3xl text-gray-800 active:bg-gray-300"
+              className="btn-3d h-touch w-touch rounded-2xl text-3xl text-gray-800"
+              style={{ ['--btn' as string]: '#f3f4f6' }}
             >
               {n}
             </button>

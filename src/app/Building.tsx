@@ -1,52 +1,66 @@
 import { motion } from 'framer-motion'
 import type { GameMeta } from '@/games/types'
+import { BuildingArt } from './BuildingArt'
 
 interface Props {
   game: GameMeta
-  /** 이 건물에서 모은 스티커 수 (4단계에서 스티커북과 연결) */
   stickerCount: number
   entering: boolean
+  index: number
   onTap: () => void
 }
 
-/** 마을 지도에 놓이는 건물 한 채. 탭하면 문이 열리고 확대되며 게임으로 들어간다. */
-export function Building({ game, stickerCount, entering, onTap }: Props) {
+/** 마을 지도에 놓이는 건물 한 채. 탭하면 찌그러졌다 튀어 오르고, 문이 열리며 확대된다. */
+export function Building({ game, stickerCount, entering, index, onTap }: Props) {
   return (
     <motion.button
       type="button"
       onClick={onTap}
       aria-label={game.name}
-      className="relative flex w-52 flex-col items-center"
-      whileTap={{ scale: 0.95 }}
-      animate={entering ? { scale: 1.6, zIndex: 20 } : { scale: 1, zIndex: 0 }}
-      transition={{ type: 'spring', stiffness: 300, damping: 22 }}
+      className="relative flex w-60 flex-col items-center"
+      initial={{ y: 80, opacity: 0, scale: 0.8 }}
+      animate={
+        entering
+          ? { scale: 1.7, zIndex: 20, y: 30, opacity: 1 }
+          : { y: 0, opacity: 1, scale: 1, zIndex: 0 }
+      }
+      transition={
+        entering
+          ? { type: 'spring', stiffness: 160, damping: 20 }
+          : { type: 'spring', stiffness: 220, damping: 16, delay: 0.08 * index }
+      }
+      whileTap={{ scaleX: 1.06, scaleY: 0.92, y: 6 }}
     >
-      {/* 모은 스티커 별 */}
-      <div className="flex h-8 gap-0.5 text-xl" aria-label={`스티커 ${stickerCount}개`}>
+      {/* 모은 스티커 별: 건물 위에 호 모양으로 */}
+      <div className="relative flex h-10 items-end gap-0.5" aria-label={`스티커 ${stickerCount}개`}>
         {Array.from({ length: stickerCount }, (_, i) => (
-          <span key={i}>⭐</span>
+          <motion.span
+            key={i}
+            className="text-xl drop-shadow"
+            initial={{ scale: 0 }}
+            animate={{ scale: 1, y: [0, -3, 0] }}
+            transition={{ scale: { type: 'spring', delay: 0.3 + i * 0.05 }, y: { repeat: Infinity, duration: 1.6, delay: i * 0.2 } }}
+          >
+            ⭐
+          </motion.span>
         ))}
       </div>
 
-      {/* 지붕 */}
-      <div
-        className="h-0 w-0 border-x-[96px] border-b-[56px] border-x-transparent"
-        style={{ borderBottomColor: game.color }}
-      />
-      {/* 몸통 */}
-      <div
-        className="flex h-36 w-44 flex-col items-center justify-end rounded-b-2xl shadow-lg"
-        style={{ backgroundColor: game.color }}
+      <motion.div
+        className="h-56 w-56 drop-shadow-[0_14px_10px_rgba(0,0,0,0.22)]"
+        animate={{ y: [0, -3, 0] }}
+        transition={{ repeat: Infinity, duration: 3 + index * 0.4, ease: 'easeInOut' }}
       >
-        <div className="text-6xl drop-shadow">{game.icon}</div>
-        {/* 문: 탭하면 열린다 */}
-        <motion.div
-          className="mt-1 h-12 w-10 origin-left rounded-t-full bg-amber-900"
-          animate={entering ? { rotateY: -110 } : { rotateY: 0 }}
-          transition={{ duration: 0.4 }}
-        />
+        <BuildingArt id={game.id} open={entering} />
+      </motion.div>
+
+      {/* 이름표 */}
+      <div
+        className="-mt-1 rounded-full border-[3px] border-white px-5 py-1 text-xl text-white shadow-[0_4px_0_rgba(0,0,0,0.15)]"
+        style={{ backgroundColor: game.color, textShadow: '0 2px 0 rgba(0,0,0,0.25)' }}
+      >
+        {game.name}
       </div>
-      <div className="mt-2 text-xl text-amber-900">{game.name}</div>
     </motion.button>
   )
 }

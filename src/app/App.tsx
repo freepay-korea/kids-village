@@ -35,7 +35,7 @@ function Screens() {
   useEffect(() => setupNative(() => navigate('/')), [navigate])
 
   return (
-    <AnimatePresence mode="wait">
+    <AnimatePresence mode="wait" initial={false}>
       {!started ? (
         <StartScreen key="start" />
       ) : (

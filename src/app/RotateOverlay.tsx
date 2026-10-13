@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
+import { Mascot } from '@/ui/Mascot'
 
 const query = '(orientation: portrait)'
 
@@ -21,19 +22,28 @@ export function RotateOverlay() {
 
   return (
     <div
-      className="fixed inset-0 z-[100] flex flex-col items-center justify-center gap-6 bg-sky"
+      className="fixed inset-0 z-[100] flex flex-col items-center justify-center gap-8 bg-gradient-to-b from-sky-200 to-sky-100"
       role="dialog"
       aria-label="폰을 돌려주세요"
     >
-      <motion.div
-        className="text-9xl"
+      <motion.svg
+        viewBox="0 0 120 200"
+        className="h-48 drop-shadow-xl"
         animate={{ rotate: [0, 0, -90, -90, 0] }}
-        transition={{ repeat: Infinity, duration: 2.4, times: [0, 0.2, 0.5, 0.8, 1] }}
+        transition={{ repeat: Infinity, duration: 2.6, times: [0, 0.25, 0.5, 0.8, 1], ease: 'easeInOut' }}
       >
-        📱
+        <rect x="10" y="10" width="100" height="180" rx="18" fill="#1f2937" />
+        <rect x="18" y="26" width="84" height="148" rx="8" fill="#bae6fd" />
+        <circle cx="60" cy="182" r="5" fill="#9ca3af" />
+        <text x="60" y="110" fontSize="40" textAnchor="middle">🏘️</text>
+      </motion.svg>
+      <motion.div className="text-6xl" animate={{ rotate: -360 }} transition={{ repeat: Infinity, duration: 2.6, ease: 'linear' }}>
+        🔄
       </motion.div>
-      <div className="text-6xl">🔄</div>
-      <div className="text-2xl text-amber-800">폰을 돌려주세요</div>
+      <div className="text-outline text-3xl">폰을 돌려주세요</div>
+      <div className="absolute bottom-2 left-2">
+        <Mascot size={90} />
+      </div>
     </div>
   )
 }

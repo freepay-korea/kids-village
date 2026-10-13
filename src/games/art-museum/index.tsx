@@ -6,6 +6,7 @@ import { feedback } from '@/core/feedback'
 import { gallery, type Artwork } from '@/core/gallery'
 import type { GameProps } from '@/games/types'
 import { Celebration } from '@/ui/Celebration'
+import { ModeSelect } from '../shared/ModeSelect'
 import { Canvas, type Drawing } from './Canvas'
 import { paletteColors, pictures, stampEmojis, type Picture } from './pictures'
 import lines from './ko.json'
@@ -30,36 +31,14 @@ export default function ArtMuseum({ onComplete }: GameProps) {
   if (mode === 'mission') return <Studio mission onDone={() => onComplete('')} />
   if (mode === 'gallery') return <Gallery onBack={() => setMode('select')} />
 
-  const pick = (m: Mode) => () => {
-    playSfx('pop')
-    setMode(m)
-  }
   return (
-    <div className="flex h-full w-full flex-col items-center justify-center gap-6">
-      <div className="text-8xl drop-shadow">🎨</div>
-      <div className="flex gap-6">
-        <RoundButton label="놀이 모드" onClick={pick('play')} bg="#ffffff">🖌️</RoundButton>
-        <RoundButton label="미션 모드" onClick={pick('mission')} bg="#c4b5fd">⭐</RoundButton>
-        <RoundButton label="갤러리" onClick={pick('gallery')} bg="#ffffff">🖼️</RoundButton>
-      </div>
-    </div>
-  )
-}
-
-function RoundButton({ label, onClick, bg, children }: { label: string; onClick: () => void; bg: string; children: string }) {
-  return (
-    <motion.button
-      type="button"
-      onClick={onClick}
-      aria-label={label}
-      className="flex h-32 w-32 items-center justify-center rounded-full text-6xl shadow-xl"
-      style={{ backgroundColor: bg }}
-      whileTap={{ scale: 0.9 }}
-      animate={{ y: [0, -6, 0] }}
-      transition={{ repeat: Infinity, duration: 1.8 }}
-    >
-      {children}
-    </motion.button>
+    <ModeSelect
+      color="#c4b5fd"
+      icon="🎨"
+      onPlay={() => setMode('play')}
+      onMission={() => setMode('mission')}
+      extra={{ icon: '🖼️', label: '갤러리', onClick: () => setMode('gallery') }}
+    />
   )
 }
 
@@ -142,9 +121,10 @@ function Studio({ mission, onDone }: { mission: boolean; onDone: () => void }) {
               type="button"
               onClick={() => changePicture(p)}
               aria-label={p.name}
-              className={`flex h-touch w-touch items-center justify-center rounded-2xl text-4xl shadow ${
-                p.id === picture.id ? 'bg-white ring-4 ring-amber-400' : 'bg-white/70'
+              className={`btn-3d flex h-touch w-touch items-center justify-center rounded-2xl text-4xl ${
+                p.id === picture.id ? 'ring-4 ring-amber-400' : 'opacity-80'
               }`}
+              style={{ ['--btn' as string]: '#ffffff' }}
             >
               {p.icon}
             </button>
@@ -153,7 +133,8 @@ function Studio({ mission, onDone }: { mission: boolean; onDone: () => void }) {
             type="button"
             onClick={saveAndClear}
             aria-label="그림 저장"
-            className="mt-auto flex h-touch w-touch items-center justify-center rounded-2xl bg-white text-4xl shadow active:scale-90"
+            className="btn-3d mt-auto flex h-touch w-touch items-center justify-center rounded-2xl text-4xl"
+            style={{ ['--btn' as string]: '#bbf7d0' }}
           >
             💾
           </button>
@@ -185,12 +166,12 @@ function ToolButton({
         playSfx('tap')
         onClick()
       }}
-      className={`flex h-14 w-14 items-center justify-center rounded-full text-3xl shadow ${
-        active ? 'ring-4 ring-gray-800' : 'ring-2 ring-white'
+      className={`btn-3d flex h-14 w-14 items-center justify-center rounded-full text-3xl ${
+        active ? 'ring-4 ring-cocoa' : ''
       }`}
-      style={style}
+      style={{ ...style, ['--btn' as string]: String(style.backgroundColor ?? '#fff') }}
       whileTap={{ scale: 0.9 }}
-      animate={active ? { scale: 1.15 } : { scale: 1 }}
+      animate={active ? { scale: 1.18, y: -4 } : { scale: 1, y: 0 }}
     >
       {children}
     </motion.button>
